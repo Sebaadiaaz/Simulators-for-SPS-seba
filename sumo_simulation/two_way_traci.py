@@ -21,7 +21,7 @@ else:
 # =============================================================================
 # change the path based on your configuration
 # =============================================================================
-sumoBinary = r"D:\Eclipse\Sumo\bin\sumo-gui.exe"
+sumoBinary = r"/home/simu5g/sumo-1.11.0/bin/sumo" # updating the SUMO path
 sumoCmd = [sumoBinary, "-c", "autobahn.sumocfg"]
 
     
@@ -44,7 +44,7 @@ def vehicle_information():
            location_list.append([vehicleId,x_coordinate,y_coordinate]) # saving three items in each line
            index +=1       
        if 100<step<=500: # sampling time duration
-           filename_locations='data\\location_for_timestep'+str(step) # each csv-file for each step
+           filename_locations='data/location_for_timestep'+str(step) # each csv-file for each step
            f = open('%s.csv'%filename_locations,'w',newline='')
            writer = csv.writer(f)
            for i in location_list:

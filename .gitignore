@@ -1,0 +1,12 @@
+**.pyc
+/__pycache__
+**.csv
+
+/sumo_simulation/Ped_simu_SUMO/Data_ped/*
+/OOP_for_SPS/traffic_data_ped_v0/*
+/OOP_for_SPS/traffic_data_ped_v1/*
+/OOP_for_SPS/traffic_data_ped_v2/*
+/OOP_for_SPS/traffic_data_ped_v3/*
+/OOP_for_SPS/traffic_data_ped_v4/*
+/OOP_for_SPS/traffic_data_ped_v5/*
+/OOP_for_SPS/traffic_data_ped_v6/*

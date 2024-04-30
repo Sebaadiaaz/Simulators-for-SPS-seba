@@ -15,7 +15,7 @@ set_of_staying_nodes=[]
 vehicle_data=[] 
 for s in range(1,401):
     step_number=100+s
-    location_step=pd.read_csv("data\\location_for_timestep%s.csv"%str(step_number),header=None)
+    location_step=pd.read_csv("data/location_for_timestep%s.csv"%str(step_number),header=None)
     vehicle_data.append(location_step)
     if s==1:  # list all vehicle IDs at first time-step
         set_of_staying_nodes=list(vehicle_data[0][0])

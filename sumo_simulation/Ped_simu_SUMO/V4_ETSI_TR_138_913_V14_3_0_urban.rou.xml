@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-11-23 17:47:59 by Eclipse SUMO netedit Version 1.18.0
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+      <vType id="car" accel="0.8" decel="4.5" sigma="1.0" length="4" minGap="2.5" maxSpeed="13.89" guiShape="passenger" />
+  
+    <vTypeDistribution id="pedestrian">
+        <vType vClass="pedestrian"   id="slowpedestrian"  maxSpeed="1.0" latAlignment="compact" probability=".33"/>
+        <vType vClass="pedestrian"   id="avgpedestrian"   maxSpeed="1.5" latAlignment="compact" probability=".33"/>
+        <vType vClass="pedestrian"   id="fastpedestrian"  maxSpeed="2.0" latAlignment="compact" probability=".33"/>
+    </vTypeDistribution>
+    
+    <vTypeDistribution id="bicycle">
+        <vType vClass="bicycle"      id="slowbicycle"     maxSpeed="4.2" minGap="0.5" latAlignment="compact" probability=".33"/>
+        <vType vClass="bicycle"      id="avgbicycle"      maxSpeed="5.5" minGap="0.5" latAlignment="compact" probability=".33"/>
+        <vType vClass="bicycle"      id="fastbicycle"     maxSpeed="6.9" minGap="0.5" latAlignment="compact" probability=".33"/>
+    </vTypeDistribution>
+    
+    <vTypeDistribution id="ptw">
+        <vType vClass="motorcycle" id="motorcycle"  personCapacity="2" latAlignment="arbitrary" lcPushy="1.0" minGapLat="0.5" minGap="0.5" probability=".70" tau="1" speedDev="0.1"/>
+        <vType vClass="moped"      id="moped"       personCapacity="1" latAlignment="arbitrary" lcPushy="1.0" minGapLat="0.5" minGap="0.5" probability=".30" tau="1" speedDev="0.1"/>
+    </vTypeDistribution>
+    
+    <!-- Routes -->
+    <route id="r_0" edges="E4 E5 -E5 -E4 E4 E5 -E5 -E4 E4 E5 -E5 -E4 E4 E5 -E5 -E4 E4 E5"/>
+    <route id="r_1" edges="E16 E17 -E17 -E16 E16 E17 -E17 -E16 E16 E17 -E17 -E16 E16 E17 -E17 -E16 E16 E17"/>
+    <route id="r_2" edges="E16 E17"/>
+    <route id="r_3" edges="-E17 -E16"/>
+
+    <route id="r_4" edges="E17 E16"/>
+    <route id="r_5" edges="-E16 -E17"/>
+    <route id="r_10" edges="E5 E4"/>
+    <route id="r_11" edges="-E4 -E5"/>
+    <!-- <route id="r_6" edges="-E18 -E17 -E16"/>
+    <route id="r_7" edges="-E21 -E20 -E19"/>
+    <route id="r_8" edges="-E9 -E8 -E7"/>
+    <route id="r_9" edges="-E6 -E5 -E4"/> -->
+
+    <flow id="flow1" type="car" route="r_0" begin="0" vehsPerHour="1000" number="50"/>
+    <flow id="flow2" type="car" route="r_1" begin="0" vehsPerHour="1000" number="50"/>
+
+    <flow id="flow11" type="bicycle" route="r_0" begin="0" vehsPerHour="1000" number="8"/>
+    <flow id="flow12" type="bicycle" route="r_1" begin="0" vehsPerHour="1000" number="8"/>
+
+
+    <flow id="flow122" type="ptw" route="r_0" begin="0" vehsPerHour="1000" number="8"/>
+    <flow id="flow222" type="ptw" route="r_1" begin="0" vehsPerHour="1000" number="8"/>
+
+
+
+ <!--   <flow id="flow5" type="bicycle" route="r_1" begin="0" vehsPerHour="500" number="1000"/>
+    <flow id="flow6" type="bicycle" route="r_1" begin="0" vehsPerHour="500" number="1000"/>
+    <flow id="flow7" type="ptw" route="r_2" begin="0" vehsPerHour="500" number="1000"/>
+    <flow id="flow8" type="ptw" route="r_2" begin="0" vehsPerHour="500" number="1000"/>
+    <flow id="flow9" type="ptw" route="r_3" begin="0" vehsPerHour="500" number="1000"/>
+    <flow id="flow19" type="ptw" route="r_3" begin="0" vehsPerHour="500" number="1000"/>-->
+
+    <personFlow id="pf_0" begin="0.00" number="34" period="3">
+        <walk route="r_0"/>
+    </personFlow>
+    <personFlow id="pf_1" begin="0.00" number="34" period="3">
+        <walk route="r_1"/>
+    </personFlow>
+    <!-- Vehicles, persons and containers (sorted by depart) 
+    <personFlow id="pf_0" begin="0.00" number="1800" period="3">
+        <personTrip from="E16" to="E17" lines="ANY"/>
+    </personFlow>
+    <personFlow id="pf_1" begin="0.00" number="1800" period="3">
+        <personTrip from="-E17" to="-E16" lines="ANY"/>
+    </personFlow>
+    <personFlow id="pf_10" begin="0.00" number="1800" period="3">
+        <personTrip from="E4" to="E5" lines="ANY"/>
+    </personFlow>
+    <personFlow id="pf_11" begin="0.00" number="1800" period="3">
+        <personTrip from="-E5" to="-E4" lines="ANY"/>
+    </personFlow> -->
+    <!-- <personFlow id="pf_2" begin="0.00" number="1800" period="exp(0.50)">
+        <personTrip from="E17" to="E16" lines="ANY"/>
+    </personFlow>
+    <personFlow id="pf_3" begin="0.00" number="1800" period="exp(0.50)">
+        <personTrip from="-E16" to="-E17" lines="ANY"/>
+    </personFlow>
+   <personFlow id="pf_4" begin="0.00" number="1800" period="exp(0.50)">
+        <personTrip from="E5" to="E4" lines="ANY"/>
+    </personFlow>
+    <personFlow id="pf_5" begin="0.00" number="1800" period="exp(0.50)">
+        <personTrip from="-E4" to="-E5" lines="ANY"/>
+    </personFlow> -->
+
+    <!--
+    <personFlow id="pf_6" begin="0.00" number="1800" period="exp(0.50)">
+        <personTrip from="E19" to="E20" lines="ANY"/>
+    </personFlow>
+    <personFlow id="pf_7" begin="0.00" number="1800" period="exp(0.50)">
+        <personTrip from="-E21" to="-E20" lines="ANY"/>
+    </personFlow>
+    <personFlow id="pf_8" begin="0.00" number="1800" period="exp(0.50)">
+        <personTrip from="-E24" to="-E23" lines="ANY"/>
+    </personFlow>
+    <personFlow id="pf_9" begin="0.00" number="1800" period="exp(0.50)">
+        <personTrip from="E22" to="E23" lines="ANY"/>
+    </personFlow>
+    -->
+
+</routes>
