@@ -24,84 +24,91 @@
     </vTypeDistribution>
     
     <!-- Routes -->
-    <route id="r_0" edges="E4 E5 -E5 -E4 E4 E5 -E5 -E4 E4 E5 -E5 -E4 E4 E5 -E5 -E4 E4 E5"/>
-    <route id="r_1" edges="E16 E17 -E17 -E16 E16 E17 -E17 -E16 E16 E17 -E17 -E16 E16 E17 -E17 -E16 E16 E17"/>
-    <route id="r_2" edges="E16 E17"/>
-    <route id="r_3" edges="-E17 -E16"/>
+    <route id="r_0" edges="E4 E5 -E5 -E4 E4 E5 -E5 -E4 E4 E5 -E5 -E4 E4 E5 -E5 -E4 E4 E5 -E5 -E4"/>
+    <route id="r_1" edges="E16 E17 -E17 -E16 E16 E17 -E17 -E16 E16 E17 -E17 -E16 E16 E17 -E17 -E16"/>
+    
+    <route id="r_2" edges="-E5 -E4 E4 E5 -E5 -E4 E4 E5 -E5 -E4 E4 E5 -E5 -E4 E4 E5 -E5 -E4 E4 E5"/>
+    <route id="r_3" edges="-E17 -E16 E16 E17 -E17 -E16 E16 E17 -E17 -E16 E16 E17 -E17 -E16 E16 E17"/>
 
-    <route id="r_4" edges="E17 E16"/>
-    <route id="r_5" edges="-E16 -E17"/>
-    <route id="r_10" edges="E5 E4"/>
-    <route id="r_11" edges="-E4 -E5"/>
-    <!-- <route id="r_6" edges="-E18 -E17 -E16"/>
-    <route id="r_7" edges="-E21 -E20 -E19"/>
-    <route id="r_8" edges="-E9 -E8 -E7"/>
-    <route id="r_9" edges="-E6 -E5 -E4"/> -->
+    <route id="r_4" edges="E5 E4 -E4 -E5 E5 E4 -E4 -E5 E5 E4 -E4 -E5 E5 E4 -E4 -E5"/>
+    <route id="r_5" edges="E17 E16 -E16 -E17 E17 E16 -E16 -E17 E17 E16 -E16 -E17 E17 E16 -E16 -E17 "/>
 
-    <flow id="flow1" type="car" route="r_0" begin="0" vehsPerHour="1000" number="50"/>
-    <flow id="flow2" type="car" route="r_1" begin="0" vehsPerHour="1000" number="50"/>
+    <route id="r_6" edges="-E4 -E5 E5 E4 -E4 -E5 E5 E4 -E4 -E5 E5 E4 -E4 -E5 E5 E4 "/>
+    <route id="r_7" edges="-E16 -E17 E17 E16 -E16 -E17 E17 E16 -E16 -E17 E17 E16 -E16 -E17 E17 E16"/>
 
-    <flow id="flow11" type="bicycle" route="r_0" begin="0" vehsPerHour="1000" number="25"/>
-    <flow id="flow12" type="bicycle" route="r_1" begin="0" vehsPerHour="1000" number="25"/>
+    <route id="r_8" edges="E4 -E16 E16 E5 -E5 E17 -E17 -E4 E4 -E16 E16 E5 -E5 E17 -E17 -E4"/>
+    <route id="r_9" edges="E16 E5 -E5 E17 -E17 -E4 E4 -E16 E16 E5 -E5 E17 -E17 -E4 E4 -E16"/>
+    
+    <route id="r_10" edges="-E5 E17 -E17 -E4 E4 -E16 E16 E5 -E5 E17 -E17 -E4 E4 -E16 E16 E5"/>
+    <route id="r_11" edges="-E17 -E4 E4 -E16 E16 E5 -E5 E17 -E17 -E4 E4 -E16 E16 E5 -E5 E17"/>
+
+    
+    <routeDistribution id="routedist1">
+        <route id="r_c0" edges="E4 E5 -E5 -E4 E4 E5 -E5 -E4 E4 E5 -E5 -E4 E4 E5 -E5 -E4 E4 E5 -E5 -E4" probability="4"/>
+        <route id="r_c1" edges="E16 E17 -E17 -E16 E16 E17 -E17 -E16 E16 E17 -E17 -E16 E16 E17 -E17 -E16" probability="4"/>
+        
+        <route id="r_c2" edges="-E5 -E4 E4 E5 -E5 -E4 E4 E5 -E5 -E4 E4 E5 -E5 -E4 E4 E5 -E5 -E4 E4 E5" probability="4"/>
+        <route id="r_c3" edges="-E17 -E16 E16 E17 -E17 -E16 E16 E17 -E17 -E16 E16 E17 -E17 -E16 E16 E17" probability="4"/>
+
+        <route id="r_c8" edges="E4 -E16 E16 E5 -E5 E17 -E17 -E4 E4 -E16 E16 E5 -E5 E17 -E17 -E4" probability="1"/>
+        <route id="r_c9" edges="E16 E5 -E5 E17 -E17 -E4 E4 -E16 E16 E5 -E5 E17 -E17 -E4 E4 -E16" probability="1"/>
+        
+        <route id="r_c10" edges="-E5 E17 -E17 -E4 E4 -E16 E16 E5 -E5 E17 -E17 -E4 E4 -E16 E16 E5" probability="1"/>
+        <route id="r_c11" edges="-E17 -E4 E4 -E16 E16 E5 -E5 E17 -E17 -E4 E4 -E16 E16 E5 -E5 E17" probability="1"/>
+    </routeDistribution>
 
 
-    <flow id="flow122" type="ptw" route="r_0" begin="0" vehsPerHour="1000" number="25"/>
-    <flow id="flow222" type="ptw" route="r_1" begin="0" vehsPerHour="1000" number="25"/>
+    
+    <flow id="flow1" type="car" route="routedist1" begin="0" number="15" period="exp(0.5)" departPos="random"/>
+    <flow id="flow2" type="car" route="routedist1" begin="0" number="15" period="exp(0.5)" departPos="random"/>
+    <flow id="flow3" type="car" route="routedist1" begin="0" number="15" period="exp(0.5)" departPos="random"/>
+    <flow id="flow4" type="car" route="routedist1" begin="0" number="15" period="exp(0.5)" departPos="random"/>
+    <flow id="flow5" type="car" route="routedist1" begin="0" number="15" period="exp(0.5)" departPos="random"/>
+    <flow id="flow6" type="car" route="routedist1" begin="0" number="15" period="exp(0.5)" departPos="random"/>
+    <flow id="flow7" type="car" route="routedist1" begin="0" number="15" period="exp(0.5)" departPos="random"/>
+    <flow id="flow8" type="car" route="routedist1" begin="0" number="15" period="exp(0.5)" departPos="random"/>
 
 
+    <flow id="flow21" type="bicycle" route="routedist1" begin="0" number="17" period="exp(10)" departPos="random"/>
+    <flow id="flow22" type="bicycle" route="routedist1" begin="0" number="17" period="exp(10)" departPos="random"/>
+    <flow id="flow23" type="bicycle" route="routedist1" begin="0" number="18" period="exp(10)" departPos="random"/>
+    <flow id="flow24" type="bicycle" route="routedist1" begin="0" number="18" period="exp(10)" departPos="random"/>
+  
 
- <!--   <flow id="flow5" type="bicycle" route="r_1" begin="0" vehsPerHour="500" number="1000"/>
-    <flow id="flow6" type="bicycle" route="r_1" begin="0" vehsPerHour="500" number="1000"/>
-    <flow id="flow7" type="ptw" route="r_2" begin="0" vehsPerHour="500" number="1000"/>
-    <flow id="flow8" type="ptw" route="r_2" begin="0" vehsPerHour="500" number="1000"/>
-    <flow id="flow9" type="ptw" route="r_3" begin="0" vehsPerHour="500" number="1000"/>
-    <flow id="flow19" type="ptw" route="r_3" begin="0" vehsPerHour="500" number="1000"/>-->
-
-    <personFlow id="pf_0" begin="240.00" number="150" period="1">
+    <personFlow id="pf_0" begin="120.00" number="17" period="exp(10)" departPos="random">
         <walk route="r_0"/>
     </personFlow>
-    <personFlow id="pf_1" begin="240.00" number="150" period="1">
+    <personFlow id="pf_1" begin="120.00" number="17" period="exp(10)" departPos="random">
         <walk route="r_1"/>
     </personFlow>
-    <!-- Vehicles, persons and containers (sorted by depart) 
-    <personFlow id="pf_0" begin="0.00" number="1800" period="3">
-        <personTrip from="E16" to="E17" lines="ANY"/>
+    <personFlow id="pf_2" begin="120.00" number="17" period="exp(10)" departPos="random">
+        <walk route="r_2"/>
     </personFlow>
-    <personFlow id="pf_1" begin="0.00" number="1800" period="3">
-        <personTrip from="-E17" to="-E16" lines="ANY"/>
+    <personFlow id="pf_3" begin="120.00" number="17" period="exp(10)" departPos="random">
+        <walk route="r_3"/>
     </personFlow>
-    <personFlow id="pf_10" begin="0.00" number="1800" period="3">
-        <personTrip from="E4" to="E5" lines="ANY"/>
+    <personFlow id="pf_4" begin="120.00" number="22" period="exp(10)" departPos="random">
+        <walk route="r_4"/>
+    </personFlow> 
+    <personFlow id="pf_5" begin="120.00" number="22" period="exp(10)" departPos="random">
+        <walk route="r_5"/>
     </personFlow>
-    <personFlow id="pf_11" begin="0.00" number="1800" period="3">
-        <personTrip from="-E5" to="-E4" lines="ANY"/>
-    </personFlow> -->
-    <!-- <personFlow id="pf_2" begin="0.00" number="1800" period="exp(0.50)">
-        <personTrip from="E17" to="E16" lines="ANY"/>
+    <personFlow id="pf_6" begin="120.00" number="22" period="exp(10)" departPos="random">
+        <walk route="r_6"/>
     </personFlow>
-    <personFlow id="pf_3" begin="0.00" number="1800" period="exp(0.50)">
-        <personTrip from="-E16" to="-E17" lines="ANY"/>
+    <personFlow id="pf_7" begin="120.00" number="22" period="exp(10)" departPos="random">
+        <walk route="r_7"/>
     </personFlow>
-   <personFlow id="pf_4" begin="0.00" number="1800" period="exp(0.50)">
-        <personTrip from="E5" to="E4" lines="ANY"/>
+    <personFlow id="pf_8" begin="120.00" number="13" period="exp(10)" departPos="random">
+        <walk route="r_8"/>
     </personFlow>
-    <personFlow id="pf_5" begin="0.00" number="1800" period="exp(0.50)">
-        <personTrip from="-E4" to="-E5" lines="ANY"/>
-    </personFlow> -->
-
-    <!--
-    <personFlow id="pf_6" begin="0.00" number="1800" period="exp(0.50)">
-        <personTrip from="E19" to="E20" lines="ANY"/>
+    <personFlow id="pf_9" begin="120.00" number="14" period="exp(10)" departPos="random">
+        <walk route="r_9"/>
     </personFlow>
-    <personFlow id="pf_7" begin="0.00" number="1800" period="exp(0.50)">
-        <personTrip from="-E21" to="-E20" lines="ANY"/>
-    </personFlow>
-    <personFlow id="pf_8" begin="0.00" number="1800" period="exp(0.50)">
-        <personTrip from="-E24" to="-E23" lines="ANY"/>
-    </personFlow>
-    <personFlow id="pf_9" begin="0.00" number="1800" period="exp(0.50)">
-        <personTrip from="E22" to="E23" lines="ANY"/>
-    </personFlow>
-    -->
-
+    <personFlow id="pf_10" begin="120.00" number="13" period="exp(10)" departPos="random">
+        <walk route="r_10"/>
+    </personFlow> 
+    <personFlow id="pf_11" begin="120.00" number="14" period="exp(10)" departPos="random">
+        <walk route="r_11"/>
+    </personFlow>  
 </routes>

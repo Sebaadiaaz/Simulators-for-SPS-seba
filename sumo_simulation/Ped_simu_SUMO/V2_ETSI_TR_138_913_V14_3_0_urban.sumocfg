@@ -7,7 +7,7 @@
 
 <configuration>
     <input>
-        <net-file value="V2_ETSI_TR_138_913_V14_3_0_urban.net.xml"/>
+        <net-file value="V3_ETSI_TR_138_913_V14_3_0_urban.net.xml"/>
         <route-files value="V2_ETSI_TR_138_913_V14_3_0_urban.rou.xml"/>
         <additional-files value="ETSI_TR_138_913_V14_3_0_urban.poly.xml"/>
     </input>
