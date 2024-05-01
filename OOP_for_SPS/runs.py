@@ -11,8 +11,8 @@ def wrapper(args):
 
 if __name__ == "__main__":
 
-    time_period = 49999 #10201    
-    start_sampling_time = 10202
+    time_period = 50000 #10201    
+    start_sampling_time = 201
     interval = 50
     RC_low = 5
     RC_high = 15
@@ -56,10 +56,10 @@ if __name__ == "__main__":
         resultado_dic = json.loads(resultado)
         diccionario_final[idx] = resultado_dic
 
-    with open("Final_results_group7_Fitting_20Hz.json", "w") as archivo:
+    with open("Final_results_group8_Fitting_20Hz.json", "w") as archivo:
         json.dump(diccionario_final, archivo, indent=4)
 
-    print("Archivo 'Final_results_group7_Fitting_20Hz.json' creado exitosamente.")
+    print("Archivo 'Final_results_group8_Fitting_20Hz.json' creado exitosamente.")
 
 #    print("Archivo 'Final_results_group1.json' creado exitosamente.")
 
