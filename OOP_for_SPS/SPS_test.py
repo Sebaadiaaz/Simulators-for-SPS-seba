@@ -352,6 +352,7 @@ def main(time_period,target_distance,start_sampling_time,interval,RC_low,RC_high
                             avg_VRU_PDR_indv = []
                             avg_VRU_PDR_indv_pair = []
                             for VRU in vehicle.VRUneighbour_list:
+                                avg_VRU_PDR_indv.append(np.nanmean(np.array(VRU.transmission_statistic)))
                                 # Getting vehicle index from VRU neighbour list
                                 den_v=0
                                 try:
@@ -364,10 +365,10 @@ def main(time_period,target_distance,start_sampling_time,interval,RC_low,RC_high
                                     PDR_v_VRU = VRU.Rxneighbour_list[index_v][0]/den_v # 
                                 #aggregate PDR to the list of neighnour VRUs
                                     avg_VRU_PDR_indv_pair.append(PDR_v_VRU)
-                                    avg_VRU_PDR_indv.append(np.nanmean(np.array(VRU.transmission_statistic)))
-                            if avg_VRU_PDR_indv:
+                                    
+                            if avg_VRU_PDR_indv and avg_VRU_PDR_indv_pair:
                                 serialized_VRU_AVGPDR_pair.append(float(np.nanmean(np.array(avg_VRU_PDR_indv_pair)))) 
-                                individual_VRU_AVGPDR.append(np.nanmean(np.array(avg_VRU_PDR_indv))) 
+                                serialized_VRU_AVGPDR.append(np.nanmean(np.array(avg_VRU_PDR_indv))) 
                                 serialized_emp_VAP.append(float(VRU_rec/len_VRU_N)) #individual_emp_VAP.append(VRU_rec/len_VRU_N)   
                             #print(VRU_rec/len_VRU_N)
                     #print(np.average(vehicle.transmission_statistic))
@@ -518,7 +519,7 @@ def main(time_period,target_distance,start_sampling_time,interval,RC_low,RC_high
     "VRU_PDR_avg": avg_VRU_PDR,
     "VRU_PDR_std": std_VRU_PDR,
     "All_indv_emp_VAP": serialized_emp_VAP,
-    "All_indv_VRU_AVGPDR": individual_VRU_AVGPDR,
+    "All_indv_VRU_AVGPDR": serialized_VRU_AVGPDR,
     "All_indv_VRU_AVGPDR_pair": serialized_VRU_AVGPDR_pair,
     "awareness_window": int(aw),
     "target_distance": int(target_distance),
