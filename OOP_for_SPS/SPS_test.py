@@ -369,7 +369,8 @@ def main(time_period,target_distance,start_sampling_time,interval,RC_low,RC_high
                             if avg_VRU_PDR_indv and avg_VRU_PDR_indv_pair:
                                 serialized_VRU_AVGPDR_pair.append(float(np.nanmean(np.array(avg_VRU_PDR_indv_pair)))) 
                                 serialized_VRU_AVGPDR.append(np.nanmean(np.array(avg_VRU_PDR_indv))) 
-                                serialized_emp_VAP.append(float(VRU_rec/len_VRU_N)) #individual_emp_VAP.append(VRU_rec/len_VRU_N)   
+                                serialized_emp_VAP.append(float(VRU_rec/len_VRU_N)) 
+                                individual_emp_VAP.append(VRU_rec/len_VRU_N)   
                             #print(VRU_rec/len_VRU_N)
                     #print(np.average(vehicle.transmission_statistic))
                 
@@ -402,8 +403,10 @@ def main(time_period,target_distance,start_sampling_time,interval,RC_low,RC_high
                   
 
             #print(emp_VAP_ratio_list_individual)
-            #if individual_emp_VAP:
-            #    emp_VAP_ratio_list_individual.append(individual_emp_VAP)
+            if individual_emp_VAP:
+                emp_VAP_ratio_list_individual[0].append(np.nanmean(individual_emp_VAP))
+                emp_VAP_ratio_list_individual[1].append(np.nanstd(individual_emp_VAP))
+                #emp_VAP_ratio_list_individual.append(individual_emp_VAP)
 
             #if individual_VRU_AVGPDR:
             #    VRU_AVGPDR_ratio_list_individual.append(individual_VRU_AVGPDR)
@@ -481,6 +484,16 @@ def main(time_period,target_distance,start_sampling_time,interval,RC_low,RC_high
     else:
         std_VRU_PDR = 0  # O cualquier otro valor predeterminado  
 
+    if len(emp_VAP_ratio_list_individual[0]) > 0:
+        avg_ALL_VAP_emp= float(np.nanmean(emp_VAP_ratio_list_individual[0]))
+    else:
+        avg_ALL_VAP_emp = 0  # O cualquier otro valor predeterminado  
+
+    if len(emp_VAP_ratio_list_individual[1]) > 0:
+        std_ALL_VAP_emp = float(np.nanmean(emp_VAP_ratio_list_individual[1]))
+    else:
+        std_ALL_VAP_emp = 0  # O cualquier otro valor predeterminado  
+
     if len(pdr_ratio_list) > 0:
         avg_Total_pdr = float(np.nanmean(pdr_ratio_list))
         std_Total_pdr = float(np.nanstd(pdr_ratio_list))
@@ -521,12 +534,14 @@ def main(time_period,target_distance,start_sampling_time,interval,RC_low,RC_high
     "All_indv_emp_VAP": serialized_emp_VAP,
     "All_indv_VRU_AVGPDR": serialized_VRU_AVGPDR,
     "All_indv_VRU_AVGPDR_pair": serialized_VRU_AVGPDR_pair,
-    "awareness_window": int(aw),
-    "target_distance": int(target_distance),
+    "All_VAP_emp_avg": avg_ALL_VAP_emp,
+    "All_VAP_emp_avg": std_ALL_VAP_emp,
+    #"awareness_window": int(aw),
+    #"target_distance": int(target_distance),
     "obstacles": obstacles_bool,
-    "nr": nr_bool,
-    "mu": int(mu),
-    "sensing_window": int(sensing_window),
+    #"nr": nr_bool,
+    #"mu": int(mu),
+    #"sensing_window": int(sensing_window),
     "density_scenario": int(ds_index)
     }
 
