@@ -107,7 +107,7 @@ def main(time_period,target_distance,start_sampling_time,interval,RC_low,RC_high
 
     ALL_pdr_ratio_list_individual=[[],[]]
     VRU_pdr_ratio_list_individual=[[],[]]
-    emp_VAP_ratio_list_individual=[] #[[],[]]
+    emp_VAP_ratio_list_individual=[[],[]] #[[],[]]
     VRU_AVGPDR_ratio_list_individual=[]
 
     VRUpdr_ratio_list=[]   # For VRU calculation

@@ -56,10 +56,10 @@ if __name__ == "__main__":
         resultado_dic = json.loads(resultado)
         diccionario_final[idx] = resultado_dic
 
-    with open("Final_results_group8_Fitting_20Hz.json", "w") as archivo:
+    with open("Final_results_group9_Fitting_20Hz.json", "w") as archivo:
         json.dump(diccionario_final, archivo, indent=4)
 
-    print("Archivo 'Final_results_group8_Fitting_20Hz.json' creado exitosamente.")
+    print("Archivo 'Final_results_group9_Fitting_20Hz.json' creado exitosamente.")
 
 #    print("Archivo 'Final_results_group1.json' creado exitosamente.")
 
