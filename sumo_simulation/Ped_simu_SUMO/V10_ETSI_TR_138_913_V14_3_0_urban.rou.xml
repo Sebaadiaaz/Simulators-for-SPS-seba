@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-11-23 17:47:59 by Eclipse SUMO netedit Version 1.18.0
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+      <vType id="car" accel="0.8" decel="4.5" sigma="1.0" length="4" minGap="2.5" maxSpeed="13.89" guiShape="passenger" />
+  
+    <vTypeDistribution id="pedestrian">
+        <vType vClass="pedestrian"   id="slowpedestrian"  maxSpeed="1.0" latAlignment="compact" probability=".33"/>
+        <vType vClass="pedestrian"   id="avgpedestrian"   maxSpeed="1.5" latAlignment="compact" probability=".33"/>
+        <vType vClass="pedestrian"   id="fastpedestrian"  maxSpeed="2.0" latAlignment="compact" probability=".33"/>
+    </vTypeDistribution>
+    
+    <vTypeDistribution id="bicycle">
+        <vType vClass="bicycle"      id="slowbicycle"     maxSpeed="4.2" minGap="0.5" latAlignment="compact" probability=".33"/>
+        <vType vClass="bicycle"      id="avgbicycle"      maxSpeed="5.5" minGap="0.5" latAlignment="compact" probability=".33"/>
+        <vType vClass="bicycle"      id="fastbicycle"     maxSpeed="6.9" minGap="0.5" latAlignment="compact" probability=".33"/>
+    </vTypeDistribution>
+    
+    <vTypeDistribution id="ptw">
+        <vType vClass="motorcycle" id="motorcycle"  personCapacity="2" latAlignment="arbitrary" lcPushy="1.0" minGapLat="0.5" minGap="0.5" probability=".70" tau="1" speedDev="0.1"/>
+        <vType vClass="moped"      id="moped"       personCapacity="1" latAlignment="arbitrary" lcPushy="1.0" minGapLat="0.5" minGap="0.5" probability=".30" tau="1" speedDev="0.1"/>
+    </vTypeDistribution>
+    
+    <!-- Routes -->
+    <route id="r_0" edges="E4 E5 -E5 -E4 E4 E5 -E5 -E4 E4 E5 -E5 -E4 E4 E5 -E5 -E4 E4 E5 -E5 -E4"/>
+    <route id="r_1" edges="E16 E17 -E17 -E16 E16 E17 -E17 -E16 E16 E17 -E17 -E16 E16 E17 -E17 -E16"/>
+    
+    <route id="r_2" edges="-E5 -E4 E4 E5 -E5 -E4 E4 E5 -E5 -E4 E4 E5 -E5 -E4 E4 E5 -E5 -E4 E4 E5"/>
+    <route id="r_3" edges="-E17 -E16 E16 E17 -E17 -E16 E16 E17 -E17 -E16 E16 E17 -E17 -E16 E16 E17"/>
+
+    <route id="r_4" edges="E5 E4 -E4 -E5 E5 E4 -E4 -E5 E5 E4 -E4 -E5 E5 E4 -E4 -E5"/>
+    <route id="r_5" edges="E17 E16 -E16 -E17 E17 E16 -E16 -E17 E17 E16 -E16 -E17 E17 E16 -E16 -E17 "/>
+
+    <route id="r_6" edges="-E4 -E5 E5 E4 -E4 -E5 E5 E4 -E4 -E5 E5 E4 -E4 -E5 E5 E4 "/>
+    <route id="r_7" edges="-E16 -E17 E17 E16 -E16 -E17 E17 E16 -E16 -E17 E17 E16 -E16 -E17 E17 E16"/>
+
+    <route id="r_8" edges="E4 -E16 E16 E5 -E5 E17 -E17 -E4 E4 -E16 E16 E5 -E5 E17 -E17 -E4"/>
+    <route id="r_9" edges="E16 E5 -E5 E17 -E17 -E4 E4 -E16 E16 E5 -E5 E17 -E17 -E4 E4 -E16"/>
+    
+    <route id="r_10" edges="-E5 E17 -E17 -E4 E4 -E16 E16 E5 -E5 E17 -E17 -E4 E4 -E16 E16 E5"/>
+    <route id="r_11" edges="-E17 -E4 E4 -E16 E16 E5 -E5 E17 -E17 -E4 E4 -E16 E16 E5 -E5 E17"/>
+
+    
+    <routeDistribution id="routedist1">
+        <route id="r_c0" edges="E4 E5 -E5 -E4 E4 E5 -E5 -E4 E4 E5 -E5 -E4 E4 E5 -E5 -E4 E4 E5 -E5 -E4" probability="4"/>
+        <route id="r_c1" edges="E16 E17 -E17 -E16 E16 E17 -E17 -E16 E16 E17 -E17 -E16 E16 E17 -E17 -E16" probability="4"/>
+        
+        <route id="r_c2" edges="-E5 -E4 E4 E5 -E5 -E4 E4 E5 -E5 -E4 E4 E5 -E5 -E4 E4 E5 -E5 -E4 E4 E5" probability="4"/>
+        <route id="r_c3" edges="-E17 -E16 E16 E17 -E17 -E16 E16 E17 -E17 -E16 E16 E17 -E17 -E16 E16 E17" probability="4"/>
+
+        <route id="r_c8" edges="E4 -E16 E16 E5 -E5 E17 -E17 -E4 E4 -E16 E16 E5 -E5 E17 -E17 -E4" probability="1"/>
+        <route id="r_c9" edges="E16 E5 -E5 E17 -E17 -E4 E4 -E16 E16 E5 -E5 E17 -E17 -E4 E4 -E16" probability="1"/>
+        
+        <route id="r_c10" edges="-E5 E17 -E17 -E4 E4 -E16 E16 E5 -E5 E17 -E17 -E4 E4 -E16 E16 E5" probability="1"/>
+        <route id="r_c11" edges="-E17 -E4 E4 -E16 E16 E5 -E5 E17 -E17 -E4 E4 -E16 E16 E5 -E5 E17" probability="1"/>
+    </routeDistribution>
+
+
+    
+    <flow id="flow1" type="car" route="routedist1" begin="0" number="15" period="exp(0.5)" departPos="random"/>
+    <flow id="flow2" type="car" route="routedist1" begin="0" number="15" period="exp(0.5)" departPos="random"/>
+    <flow id="flow3" type="car" route="routedist1" begin="0" number="15" period="exp(0.5)" departPos="random"/>
+    <flow id="flow4" type="car" route="routedist1" begin="0" number="15" period="exp(0.5)" departPos="random"/>
+    <flow id="flow5" type="car" route="routedist1" begin="0" number="15" period="exp(0.5)" departPos="random"/>
+    <flow id="flow6" type="car" route="routedist1" begin="0" number="15" period="exp(0.5)" departPos="random"/>
+    <flow id="flow7" type="car" route="routedist1" begin="0" number="15" period="exp(0.5)" departPos="random"/>
+    <flow id="flow8" type="car" route="routedist1" begin="0" number="15" period="exp(0.5)" departPos="random"/>
+
+
+    <flow id="flow21" type="bicycle" route="routedist1" begin="0" number="25" period="exp(10)" departPos="random"/>
+    <flow id="flow22" type="bicycle" route="routedist1" begin="0" number="25" period="exp(10)" departPos="random"/>
+    <flow id="flow23" type="bicycle" route="routedist1" begin="0" number="25" period="exp(10)" departPos="random"/>
+    <flow id="flow24" type="bicycle" route="routedist1" begin="0" number="25" period="exp(10)" departPos="random"/>
+  
+
+    <personFlow id="pf_0" begin="120.00" number="25" period="exp(10)" departPos="random">
+        <walk route="r_0"/>
+    </personFlow>
+    <personFlow id="pf_1" begin="120.00" number="25" period="exp(10)" departPos="random">
+        <walk route="r_1"/>
+    </personFlow>
+    <personFlow id="pf_2" begin="120.00" number="25" period="exp(10)" departPos="random">
+        <walk route="r_2"/>
+    </personFlow>
+    <personFlow id="pf_3" begin="120.00" number="25" period="exp(10)" departPos="random">
+        <walk route="r_3"/>
+    </personFlow>
+    <personFlow id="pf_4" begin="120.00" number="38" period="exp(10)" departPos="random">
+        <walk route="r_4"/>
+    </personFlow> 
+    <personFlow id="pf_5" begin="120.00" number="38" period="exp(10)" departPos="random">
+        <walk route="r_5"/>
+    </personFlow>
+    <personFlow id="pf_6" begin="120.00" number="38" period="exp(10)" departPos="random">
+        <walk route="r_6"/>
+    </personFlow>
+    <personFlow id="pf_7" begin="120.00" number="38" period="exp(10)" departPos="random">
+        <walk route="r_7"/>
+    </personFlow>
+    <personFlow id="pf_8" begin="120.00" number="12" period="exp(10)" departPos="random">
+        <walk route="r_8"/>
+    </personFlow>
+    <personFlow id="pf_9" begin="120.00" number="12" period="exp(10)" departPos="random">
+        <walk route="r_9"/>
+    </personFlow>
+    <personFlow id="pf_10" begin="120.00" number="12" period="exp(10)" departPos="random">
+        <walk route="r_10"/>
+    </personFlow> 
+    <personFlow id="pf_11" begin="120.00" number="12" period="exp(10)" departPos="random">
+        <walk route="r_11"/>
+    </personFlow>  
+</routes>
