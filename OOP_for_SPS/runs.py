@@ -17,11 +17,11 @@ if __name__ == "__main__":
     RC_low = 5
     RC_high = 15
     RSRP_ratio_beacon = 0.2      
-    ds_list = [10, 11, 12, 13] #, 2, 1, 0]
+    ds_list = [6, 5, 4, 3, 2, 1, 0, 10, 11, 12, 13] #, 2, 1, 0]
     sd = 1
     td = 200 #np.arange(25, 525, 25)
     obs_list = [False, True]
-    aw_list = 200 #[10, 50, 100, 200, 500]
+    aw_list = 500 #[10, 50, 100, 200, 500]
     nr_list = True #[False, True]  
     mu_list = 0 #[0,1,2]
 
@@ -44,7 +44,7 @@ if __name__ == "__main__":
     #for conf in param:
     
     # Número máximo de procesos (8 para usar 8 CPU)
-    num_procesos = 8
+    num_procesos = 22
     resultados=[]
     # Crear un grupo de procesos
     with multiprocessing.Pool(processes=num_procesos) as pool:
@@ -56,10 +56,10 @@ if __name__ == "__main__":
         resultado_dic = json.loads(resultado)
         diccionario_final[idx] = resultado_dic
 
-    with open("Final_results_group10_Fitting_20Hz.json", "w") as archivo:
+    with open("Final_results_group12_Fitting_20Hz_aw500.json", "w") as archivo:
         json.dump(diccionario_final, archivo, indent=4)
 
-    print("Archivo 'Final_results_group10_Fitting_20Hz.json' creado exitosamente.")
+    print("Archivo 'Final_results_group12_Fitting_20Hz_aw500.json' creado exitosamente.")
 
 #    print("Archivo 'Final_results_group1.json' creado exitosamente.")
 
