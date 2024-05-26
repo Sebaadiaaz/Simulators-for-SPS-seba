@@ -175,6 +175,18 @@ def main(time_period,target_distance,start_sampling_time,interval,RC_low,RC_high
             location_file_name = 'traffic_data_ped_v12/type_v12sumo_ped_vehicle_location_sec_' + str(section_index) # From pedestrian manhatan scenario + str(section_index)
         elif ds_index == 13:            
             location_file_name = 'traffic_data_ped_v13/type_v13sumo_ped_vehicle_location_sec_' + str(section_index) # From pedestrian manhatan scenario + str(section_index)
+        elif ds_index == 14:            
+            location_file_name = 'traffic_data_ped_v14/type_v14sumo_ped_vehicle_location_sec_' + str(section_index) # From pedestrian manhatan scenario + str(section_index)
+        elif ds_index == 15:            
+            location_file_name = 'traffic_data_ped_v15/type_v15sumo_ped_vehicle_location_sec_' + str(section_index) # From pedestrian manhatan scenario + str(section_index)
+        elif ds_index == 16:            
+            location_file_name = 'traffic_data_ped_v16/type_v16sumo_ped_vehicle_location_sec_' + str(section_index) # From pedestrian manhatan scenario + str(section_index)
+        elif ds_index == 17:           
+            location_file_name = 'traffic_data_ped_v17/type_v17sumo_ped_vehicle_location_sec_' + str(section_index) # From pedestrian manhatan scenario + str(section_index)
+        elif ds_index == 18:            
+            location_file_name = 'traffic_data_ped_v18/type_v18sumo_ped_vehicle_location_sec_' + str(section_index) # From pedestrian manhatan scenario + str(section_index)
+        elif ds_index == 19:            
+            location_file_name = 'traffic_data_ped_v19/type_v19sumo_ped_vehicle_location_sec_' + str(section_index) # From pedestrian manhatan scenario + str(section_index)
 
 
         #location_file_name = 'sumo_vehicle_location_'+ str(section_index)
