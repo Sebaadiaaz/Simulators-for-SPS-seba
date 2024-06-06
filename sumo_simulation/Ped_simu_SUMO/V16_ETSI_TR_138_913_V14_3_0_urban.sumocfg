@@ -12,7 +12,7 @@
         <additional-files value="ETSI_TR_138_913_V14_3_0_urban.poly.xml"/>
     </input>
     
-	<step-length value="1"/>
+	<step-length value="0.001"/>
 
 </configuration>
 
