@@ -43,8 +43,13 @@ def vehicle_information():
            x, y = traci.vehicle.getPosition(vehicleId)           
            x_coordinate = round(x,3)
            y_coordinate = round(y,3)
-           type = traci.vehicle.getTypeID(vehicleId) 
-           location_list.append([vehicleId,x_coordinate,y_coordinate,type]) # saving three items in each line
+           type = traci.vehicle.getTypeID(vehicleId)
+
+           # gathering information for clustering
+           speed = traci.vehicle.getSpeed(vehicleId)  
+           ang = traci.vehicle.getAngle(vehicleId)  
+             
+           location_list.append([vehicleId,x_coordinate,y_coordinate,type,speed,ang]) # saving three items in each line
            index +=1  
 
        #person parser
@@ -53,7 +58,12 @@ def vehicle_information():
            x_coordinate = round(x,3)
            y_coordinate = round(y,3)
            type = traci.person.getTypeID(personId)
-           location_list.append([personId,x_coordinate,y_coordinate,type]) # saving three items in each line
+           
+           # gathering information for clustering
+           speed = traci.vehicle.getSpeed(personId)  
+           ang = traci.vehicle.getAngle(personId)
+
+           location_list.append([personId,x_coordinate,y_coordinate,type,speed,ang]) # saving three items in each line
            index +=1         
 
 
