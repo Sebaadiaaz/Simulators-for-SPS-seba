@@ -17,7 +17,7 @@ for j in range(0,5):
          
         step_number= 220000+s #160000+s #305000+s #315000+s #360000+s #330000+s #5000+s
         #print(str(step_number))
-        location_step=pd.read_csv("Data_ped/v18location_for_timestep%s.csv"%str(step_number),header=None)
+        location_step=pd.read_csv("Data_ped/Cl_v15location_for_timestep%s.csv"%str(step_number),header=None)
         vehicle_data.append(location_step)
         if s==(1+10000*j):    # 200*j):  # list all vehicle IDs at first time-step
             set_of_staying_nodes=list(vehicle_data[0][0])
@@ -39,13 +39,13 @@ for j in range(0,5):
     for s in range(0,10000):#200): #0+j*200,200+j*200):
         for i in range(0,len(vehicle_data[s][0])):
             if vehicle_data[s][0][i] in set_of_staying_nodes:
-                observe_vehicles.append([s,vehicle_data[s][1][i],vehicle_data[s][2][i],vehicle_data[s][3][i]]) # save locations of all vehicles and type -j*200
+                observe_vehicles.append([s,vehicle_data[s][1][i],vehicle_data[s][2][i],vehicle_data[s][3][i],vehicle_data[s][4][i],vehicle_data[s][5][i]]) # save locations of all vehicles and type -j*200
             
 
 # =============================================================================
 # save the locations of all vehicles during a given time period
 # =============================================================================
-    filename = '/home/ayanez/Simulators-for-SPS/sumo_simulation/Ped_simu_SUMO/Data_ped/v18sumo_ped_vehicle_location_sec_'+str(j)
+    filename = '/home/ayanez/Simulators-for-SPS/sumo_simulation/Ped_simu_SUMO/Data_ped/Cl_v15sumo_ped_vehicle_location_sec_'+str(j)
     #filename = 'C:\\Users\\adani\\OneDrive\\Documentos\\GitHub\\SimulatorSPS\\OOP_for_SPS\\traffic_data_ped_v2\\v2sumo_ped_vehicle_location_sec_' + str(j)
     n=0
 

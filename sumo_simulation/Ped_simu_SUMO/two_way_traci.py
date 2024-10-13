@@ -60,15 +60,15 @@ def vehicle_information():
            type = traci.person.getTypeID(personId)
            
            # gathering information for clustering
-           speed = traci.vehicle.getSpeed(personId)  
-           ang = traci.vehicle.getAngle(personId)
+           speed = traci.person.getSpeed(personId)  
+           ang = traci.person.getAngle(personId)
 
            location_list.append([personId,x_coordinate,y_coordinate,type,speed,ang]) # saving three items in each line
            index +=1         
 
 
        if 220000<step<=270000: # Para V14 220000; Para V10,V11 y V12 160000, para V13 2000000; Para V1 430000; Para V6 305000 ;Para V5 315000; Para v3 360000;Esto para v4 330000<step<=635000: # sampling time duration
-           filename_locations='Data_ped/v19location_for_timestep'+str(step) # each csv-file for each step
+           filename_locations='Data_ped/Cl_v19location_for_timestep'+str(step) # each csv-file for each step
            f = open('%s.csv'%filename_locations,'w',newline='')
            writer = csv.writer(f)
            for i in location_list:
