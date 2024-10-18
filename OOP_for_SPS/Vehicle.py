@@ -24,7 +24,7 @@ from Obstacles import Obstacles
 
 class Vehicle():
     
-    def __init__(self, index, location, power, p_resource_keeping,RCrange,target_distance,obstacles_bool,obstacles,nr):
+    def __init__(self, index, location, power, p_resource_keeping,RCrange,target_distance,obstacles_bool,obstacles,nr,cl,min_cl,max_cl):
         self.index = index
         self.type = location[3]
         #print(self.type) just to dbug the type
@@ -73,7 +73,12 @@ class Vehicle():
         self.obstacles=obstacles # Getting obstacles from main class
         self.lastSel_t=float('inf')
         self.nr_bool = nr
-
+        self.cl_bool = cl
+        self.cl_role = 0 # 0-> VRU Active-Standalone o VRU-ACTIVE-CLUSTER-LEADER , 1 -> VRU-PASSIVE
+        self.cl_id = 0 # Cluster ID
+        self.my_cluster = []
+        self.min_cl_member = min_cl
+        self.max_cl_member = max_cl
   
 
         
@@ -274,8 +279,25 @@ class Vehicle():
                 self.Rxneighbour_list.append([0,0])
                 if vehicle.type == 1 and self.type == 2:  #Type 1 corresponds to VRU, type 2 to Cars
                     self.VRUneighbour_list.append(vehicle)
-                    #self.VRUreception.append(0)                            
-                                
+                    #self.VRUreception.append(0)
+        
+        # Chequing if there are a leader in the VRU neigbhour and if it's cluster not exceed the maximum member
+        if self.cl_bool:
+            if not self.my_cluster:
+                if self.type == 1:
+                    alone_VRUs = []
+                    for VRU in self.VRUneighbour_list:
+                        if VRU.Cl_role == 0 and len(VRU.my_cluster) < self.max_cl_member and VRU.my_cluster: # Looking for a leader with a cluster created
+                            VRU.my_cluster.append(self)
+                            self.cl_role=1
+                        if  VRU.Cl_role == 0 and not VRU.my_cluster: # Looking for active stand-alone VRU
+                            alone_VRUs.append(VRU)
+                    if len(alone_VRUs) > self.min_cl_member: # Creating a cluster
+                        self.cl_role=0
+                        self.my_cluster=alone_VRUs
+                        for cl_member in alone_VRUs:
+                            cl_member.Cl_role=1 #changing the role for the cluster members                  
+                               
     def sum_interference_power(self,receive_vehicle,vehicles):
         sum_interference = 0
         vehicles_copy=copy.copy(vehicles)
