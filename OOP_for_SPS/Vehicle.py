@@ -15,6 +15,7 @@ from RBG import RGBs_set
 from Obstacles import Obstacles
 
 
+
 # =============================================================================
 #     v_RBG is the observed suhchannel, 
 #     the function "sense_single_RBG" is to get the sum power received by the object vehicle.
@@ -24,11 +25,13 @@ from Obstacles import Obstacles
 
 class Vehicle():
     
-    def __init__(self, index, location, power, p_resource_keeping,RCrange,target_distance,obstacles_bool,obstacles,nr,cl,min_cl,max_cl):
+    def __init__(self, index, location, power, p_resource_keeping,RCrange,target_distance,obstacles_bool,obstacles,nr,cl,min_cl,max_cl,msd_cl,cluster):
         self.index = index
         self.type = location[3]
         #print(self.type) just to dbug the type
         self.location = location
+        self.speed = location[4]
+        self.angle = location[5]
         self.v_RBG = None
         self.v_em_RBGs_set = []
         self.v_em_RBGs_multiple = []
@@ -76,9 +79,11 @@ class Vehicle():
         self.cl_bool = cl
         self.cl_role = 0 # 0-> VRU Active-Standalone o VRU-ACTIVE-CLUSTER-LEADER , 1 -> VRU-PASSIVE
         self.cl_id = 0 # Cluster ID
-        self.my_cluster = []
-        self.min_cl_member = min_cl
-        self.max_cl_member = max_cl
+        self.my_cluster = [] # member in the cluster
+        self.min_cl_member = min_cl # Maximum number of members
+        self.max_cl_member = max_cl # Minimum number of members 
+        self.max_speed_dif = msd_cl
+        self.all_clusters = cluster
   
 
         
@@ -192,7 +197,7 @@ class Vehicle():
         if self.observation_boolean(v_RBG) == True:
             for vehicle in vehicles_copy:
                 #print(vehicle.v_RBG.subchannel,subchannel,vehicle.v_RBG.timeslot,timeslot)
-                if vehicle.v_RBG.subchannel == subchannel and vehicle.v_RBG.timeslot == timeslot:
+                if vehicle.v_RBG.subchannel == subchannel and vehicle.v_RBG.timeslot == timeslot and vehicle.cl_role==0:
                     sum_power += self.receive_power(vehicle)
         else:
             sum_power = float("inf")
@@ -265,7 +270,7 @@ class Vehicle():
         else:
             self.v_RBG = RBG_list[self.v_RBG.timeslot+channel.interval][self.v_RBG.subchannel]
     
-    def generate_neighbour_set(self,vehicles):
+    def generate_neighbour_set(self,vehicles,t):
         self.neighbour_list = []
         self.VRUneighbour_list = []
         self.Rxneighbour_list = []
@@ -283,21 +288,40 @@ class Vehicle():
         
         # Chequing if there are a leader in the VRU neigbhour and if it's cluster not exceed the maximum member
         if self.cl_bool:
-            if not self.my_cluster:
-                if self.type == 1:
-                    alone_VRUs = []
+            if not self.my_cluster: # Checkeando que no tenga asignado un cluster
+                if self.type == 1: # Checking the user is VRU
+                    alone_VRUs = [] 
                     for VRU in self.VRUneighbour_list:
-                        if VRU.Cl_role == 0 and len(VRU.my_cluster) < self.max_cl_member and VRU.my_cluster: # Looking for a leader with a cluster created
-                            VRU.my_cluster.append(self)
+                        if VRU.cl_role == 0 and len(VRU.my_cluster) < self.max_cl_member and VRU.my_cluster and (VRU.speed-self.speed <= self.max_speed_dif): # Looking for a leader with a cluster created
+                            VRU.my_cluster.append(self) #joining a cluster 
                             self.cl_role=1
+                            self.cl_id=VRU.cl_id
                         if  VRU.Cl_role == 0 and not VRU.my_cluster: # Looking for active stand-alone VRU
                             alone_VRUs.append(VRU)
                     if len(alone_VRUs) > self.min_cl_member: # Creating a cluster
                         self.cl_role=0
+                        self.id=self.all_clusters.getClusterID(t)
                         self.my_cluster=alone_VRUs
                         for cl_member in alone_VRUs:
                             cl_member.Cl_role=1 #changing the role for the cluster members                  
-                               
+            else:
+                for CM in self.my_cluster:
+                    if CM.cl_role == 0:
+                        if self.distance(CM)>self.target_distance or (CM.speed-self.speed > self.max_speed_dif): # Leaving cluster if im out of range or exceed the speed diference
+                            for CM2 in self.my_cluster:
+                                CM2.my_cluster.remove(self) #removing from all cluster lists
+                            
+
+                if 0 < len(self.my_cluster) < self.min_cl_member and self.cl_role == 0: #Deleting a Cluster if is a Leader
+                    self.all_clusters.deleteClusterID(self.cl_id,t)
+
+                    for CM in self.my_cluster:
+                        CM.my_cluster = []
+                        CM.cl_id = 0
+                    
+                    self.my_cluster = []
+                    self.cl_id = 0
+
     def sum_interference_power(self,receive_vehicle,vehicles):
         sum_interference = 0
         vehicles_copy=copy.copy(vehicles)
@@ -308,7 +332,7 @@ class Vehicle():
             sum_interference = float("inf")
         else:
             for vehicle in vehicles_copy:
-                if vehicle.v_RBG.timeslot == self.v_RBG.timeslot and vehicle.v_RBG.subchannel == self.v_RBG.subchannel:
+                if vehicle.v_RBG.timeslot == self.v_RBG.timeslot and vehicle.v_RBG.subchannel == self.v_RBG.subchannel and vehicle.cl_role==0: #only considering leader as transmitter
                     sum_interference += receive_vehicle.receive_power(vehicle)
         return sum_interference
 
@@ -325,7 +349,7 @@ class Vehicle():
             return sum_interference
         # if no half-duplex errors, accumulate the interference power
         for vehicle in vehicles_copy:                
-            if vehicle.v_RBG.timeslot == RB.timeslot and vehicle.v_RBG.subchannel == RB.subchannel:
+            if vehicle.v_RBG.timeslot == RB.timeslot and vehicle.v_RBG.subchannel == RB.subchannel and vehicle.cl_role==0: #only considering leader as transmitter
                 sum_interference += receive_vehicle.receive_power(vehicle)                    
         return sum_interference    
 

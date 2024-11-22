@@ -11,6 +11,7 @@ import pandas as pd
 from RBG import RBG
 from Channel import Channel
 from Obstacles import Obstacles
+from cluster import cluster
 import sys
 import time
 import argparse
@@ -29,11 +30,12 @@ parser = argparse.ArgumentParser(description=\
                                  \n--obs: Inclusion of obstacles in the scenario\
                                  \n--nr: Activate New Radio adding re-evaluation procedure \
                                  \n--ds: density scenario\
-                                 \n--sd: Step Duration in ms\
                                  \n--aw: Awarenesness Window in ms\
+                                 \n--sd: Step Duration in ms\
                                  \n--cl: Activate clustering\
                                  \n--mincl: Minimum member in a cluster\
-                                 \n--maxcl: Maximum member in a cluster')
+                                 \n--maxcl: Maximum member in a cluster\
+                                 \n--msdcl: Maximum speed difference')
 
                                 
 parser.add_argument('--cr', type=float, default=0.2) #we remove the list L2 for NR as is shown in: https://ieeexplore.ieee.org/document/9579000
@@ -46,6 +48,7 @@ parser.add_argument('--rch', type=int, default=15)
 parser.add_argument('--mu', type=int, default=0)
 parser.add_argument('--mincl', type=int, default=1)
 parser.add_argument('--maxcl', type=int, default=20)
+parser.add_argument('--msdcl', type=int, default=5)
 
 parser.add_argument('--obs', action='store_true')
 parser.add_argument('--no-obs', dest='obs', action='store_false') # Activar o desactivar 
@@ -62,10 +65,10 @@ parser.add_argument('--ds', type=int, default=4)
 parser.add_argument('--sd', type=int, default=1)
 parser.add_argument('--aw', type=int, default=1000)
 
-def genearate_vehicles(num_vehicle, num_slot, vehicle_location, transmit_power, p_resource_keeping,RCrange,target_distance,obs,obstacles,nr,cl,mincl,maxcl):
+def genearate_vehicles(num_vehicle, num_slot, vehicle_location, transmit_power, p_resource_keeping,RCrange,target_distance,obs,obstacles,nr,cl,mincl,maxcl,msdcl,clusters):
     vehicle_instance_list = []
     for i in range(num_vehicle):
-        vehicle_instance_list.append(Vehicle(i,vehicle_location[i],transmit_power,p_resource_keeping,RCrange,target_distance,obs,obstacles,nr,cl,mincl,maxcl))
+        vehicle_instance_list.append(Vehicle(i,vehicle_location[i],transmit_power,p_resource_keeping,RCrange,target_distance,obs,obstacles,nr,cl,mincl,maxcl,msdcl,clusters))
     return vehicle_instance_list    
         
 def generate_RBGs(num_slot,num_subch):
@@ -78,7 +81,7 @@ def generate_RBGs(num_slot,num_subch):
     return RBG_intance_list
   
  
-def main(time_period,target_distance,start_sampling_time,interval,RC_low,RC_high,RSRP_ratio_beacon,mu,obs,ds,nr,aw,sd,cl,mincl,maxcl):
+def main(time_period,target_distance,start_sampling_time,interval,RC_low,RC_high,RSRP_ratio_beacon,mu,obs,ds,nr,aw,sd,cl,mincl,maxcl,msdcl):
     # parameter settings
     transmit_power = 200 #this value is in mW units equivalent to 23 dBm
     time_period_all = 50000 #300000 #300000 #6000 #300000 #200 #50000 #50000 #10000 #original 300000 Total time in miliseconds considering all dataset
@@ -139,6 +142,9 @@ def main(time_period,target_distance,start_sampling_time,interval,RC_low,RC_high
     nr_bool = nr
     ds_index = ds
     cl_bool = cl
+    
+    if cl_bool==True:
+        clusters = cluster() 
 
     if nr_bool: RSRP_ratio_beacon = 1
 
@@ -247,7 +253,7 @@ def main(time_period,target_distance,start_sampling_time,interval,RC_low,RC_high
     # initialization
     # =============================================================================
     vehicle_list = genearate_vehicles(num_vehicle,time_period,vehicle_location_ini,\
-                                      transmit_power,p_resource_keeping,RCrange,target_distance,obstacles_bool,obstacles,nr_bool,cl_bool,mincl,maxcl)
+                                      transmit_power,p_resource_keeping,RCrange,target_distance,obstacles_bool,obstacles,nr_bool,cl_bool,mincl,maxcl,msdcl,clusters)
     #print(vehicle_list[0])
 
     RBG_list = generate_RBGs(time_period,num_subch)
@@ -274,7 +280,7 @@ def main(time_period,target_distance,start_sampling_time,interval,RC_low,RC_high
             if t==0:
                 # initialize resource selection
                 vehicle_list[i].initial_RBGs_selection(RBG_list,interval) 
-                vehicle_list[i].generate_neighbour_set(vehicle_list)
+                vehicle_list[i].generate_neighbour_set(vehicle_list,t)
                 
             else:
                 vehicle_list[i].update_reselection_counter(t,interval,RCrange)
@@ -411,7 +417,7 @@ def main(time_period,target_distance,start_sampling_time,interval,RC_low,RC_high
                 vehicle.num_tran = 0
                 vehicle.num_rec = 0
                 vehicle.VRUreception = []
-                vehicle_list[i].generate_neighbour_set(vehicle_list)
+                vehicle_list[i].generate_neighbour_set(vehicle_list,t)
 
 
                 #vehicle.VRUnum_tran = 0
@@ -572,9 +578,11 @@ def main(time_period,target_distance,start_sampling_time,interval,RC_low,RC_high
     #"awareness_window": int(aw),
     #"target_distance": int(target_distance),
     "obstacles": obstacles_bool,
-    #"nr": nr_bool,
-    #"mu": int(mu),
-    #"sensing_window": int(sensing_window),
+    "cluster": cl_bool,
+    "clusters_info":json.dumps(clusters.cluster_IDs),
+    "min_cl": int(mincl),
+    "max_cl": int(maxcl),
+    "max_speed_diff": int(msdcl),
     "density_scenario": int(ds_index)
     }
 
@@ -583,7 +591,7 @@ def main(time_period,target_distance,start_sampling_time,interval,RC_low,RC_high
     
 if __name__ == '__main__':
     args = parser.parse_args()   # 解析所有的命令行传入变量
-    main(args.r,args.td,args.sst,args.itv,args.rcl,args.rch,args.cr,args.mu,args.obs,args.ds,args.nr,args.aw,args.sd,args.cl,args.mincl,args.maxcl)
+    main(args.r,args.td,args.sst,args.itv,args.rcl,args.rch,args.cr,args.mu,args.obs,args.ds,args.nr,args.aw,args.sd,args.cl,args.mincl,args.maxcl,args.msdcl)
 
 
 
