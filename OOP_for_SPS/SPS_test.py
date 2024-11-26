@@ -273,7 +273,7 @@ def main(time_period,target_distance,start_sampling_time,interval,RC_low,RC_high
             # update location and sensing_window
             vehicle_list[i].update_location(ObserveVehicles[t][i])
             
-            if vehicle_list[i].type==1 and vehicle_list[i].Cl_role==1 and cl_bool:
+            if vehicle_list[i].type==1 and vehicle_list[i].cl_role==1 and cl_bool:
                 continue 
 
 

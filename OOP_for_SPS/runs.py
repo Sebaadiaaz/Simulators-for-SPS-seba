@@ -11,23 +11,23 @@ def wrapper(args):
 
 if __name__ == "__main__":
 
-    time_period = 50000 #[5000, 10000, 15000, 20000, 25000, 30000, 35000, 40000, 45000,50000] #10201    
+    time_period = 30000 #[5000, 10000, 15000, 20000, 25000, 30000, 35000, 40000, 45000,50000] #10201    
     start_sampling_time = 201 #[0, 5001, 10001, 15001, 20001, 25001, 30001, 35001, 40001, 45001]
     interval = 100 #10 Hz
     RC_low = 5
     RC_high = 15
     RSRP_ratio_beacon = 0.2      
-    ds_list = [15, 16, 17, 18, 19] #[14, 15, 16, 17] #[6, 5, 4, 3, 2, 1, 0, 10, 11, 12, 13] #, 2, 1, 0]
+    ds_list = [15, 16, 17, 18, 19] #[6, 5, 4, 3, 2, 1, 0, 10, 11, 12, 13] #, 2, 1, 0]
     sd = 1
     td = 200 #np.arange(25, 525, 25)
     obs_list = True #[True] #False, True]
     aw_list = 200 #[10, 50, 100, 200, 500]
     nr_list = True #[False, True]  
     mu_list = 0 #[0,1,2]
-    cl_list=[True,False]
+    cl_list=[True] #,False]
     min_cl=[2,3,4,5,6]
     max_cl=[10,15,20,25,30]
-    max_speed_diff_list=[2,3,4,5,6]
+    max_speed_diff_list=[1.5, 2, 2.5] #,3,4,5,6]
 
 
 
@@ -37,7 +37,7 @@ if __name__ == "__main__":
     #for target_distance in td:
     for cl in cl_list:
         for ds in ds_list:
-            for size_cl in range(0,5):
+            for size_cl in range(0,1):
                 for speed in max_speed_diff_list:
                     param = [time_period,td,start_sampling_time,interval,RC_low,RC_high,RSRP_ratio_beacon,mu_list,obs_list,ds,nr_list,aw_list,sd,cl,min_cl[size_cl],max_cl[size_cl],speed]
                     param_list.append(param)
