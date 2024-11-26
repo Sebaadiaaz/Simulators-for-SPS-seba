@@ -25,7 +25,7 @@ from Obstacles import Obstacles
 
 class Vehicle():
     
-    def __init__(self, index, location, power, p_resource_keeping,RCrange,target_distance,obstacles_bool,obstacles,nr,cl,min_cl,max_cl,msd_cl,cluster):
+    def __init__(self, index, location, power, p_resource_keeping,RCrange,target_distance,obstacles_bool,obstacles,nr,cl,min_cl,max_cl,msd_cl,cluster,max_dis_cl):
         self.index = index
         self.type = location[3]
         #print(self.type) just to dbug the type
@@ -83,6 +83,7 @@ class Vehicle():
         self.min_cl_member = min_cl # Maximum number of members
         self.max_cl_member = max_cl # Minimum number of members 
         self.max_speed_dif = msd_cl
+        self.max_dsitance_cl = max_dis_cl
         self.all_clusters = cluster
   
 
@@ -292,7 +293,7 @@ class Vehicle():
                 if self.type == 1: # Checking the user is VRU
                     alone_VRUs = [] 
                     for VRU in self.VRUneighbour_list:
-                        if VRU.cl_role == 0 and len(VRU.my_cluster) < self.max_cl_member and VRU.my_cluster and (VRU.speed-self.speed <= self.max_speed_dif): # Looking for a leader with a cluster created
+                        if VRU.cl_role == 0 and len(VRU.my_cluster) < self.max_cl_member and VRU.my_cluster and (self.vel_diff(CM.speed,CM.angle) <= self.max_speed_dif) and self.distance(VRU)<=self.max_dsitance_cl: # Looking for a leader with a cluster created
                             VRU.my_cluster.append(self) #joining a cluster 
                             self.cl_role=1
                             self.cl_id=VRU.cl_id
@@ -307,7 +308,7 @@ class Vehicle():
             else:
                 for CM in self.my_cluster:
                     if CM.cl_role == 0:
-                        if self.distance(CM)>self.target_distance or (CM.speed-self.speed > self.max_speed_dif): # Leaving cluster if im out of range or exceed the speed diference
+                        if self.distance(CM)>self.max_dsitance_cl or (self.vel_diff(CM.speed,CM.angle) > self.max_speed_dif): # Leaving cluster if im out of range or exceed the speed diference
                             for CM2 in self.my_cluster:
                                 CM2.my_cluster.remove(self) #removing from all cluster lists
                             
@@ -408,7 +409,28 @@ class Vehicle():
         else:
             self.transmission_statistic.append(reception/num_packet)
 
-
+    def vel_diff(self, speed_head, angle_head): #calculate_velocity_difference_percentage(
+        # Convert angles from degrees to radians
+        angle_head_rad = math.radians(angle_head)
+        angle_follower_rad = math.radians(self.angle)
+        
+        # Convert polar coordinates to Cartesian coordinates
+        v1x = speed_head * math.cos(angle_head_rad)
+        v1y = speed_head * math.sin(angle_head_rad)
+        v2x = self.speed * math.cos(angle_follower_rad)
+        v2y = self.speed * math.sin(angle_follower_rad)
+        
+        # Calculate the relative velocity components
+        vrx = v1x - v2x
+        vry = v1y - v2y
+        
+        # Calculate the magnitude of the relative velocity
+        relative_speed = math.sqrt(vrx**2 + vry**2)
+        
+        # Calculate the percentage difference relative to the cluster head's speed
+        percentage_difference = (relative_speed / speed_head) * 100
+        
+        return percentage_difference
         #repeat the process for VRU neighbours
 
 """         reception = 0     

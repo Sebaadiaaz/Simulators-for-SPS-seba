@@ -11,7 +11,7 @@ def wrapper(args):
 
 if __name__ == "__main__":
 
-    time_period = 30000 #[5000, 10000, 15000, 20000, 25000, 30000, 35000, 40000, 45000,50000] #10201    
+    time_period = 20201 #[5000, 10000, 15000, 20000, 25000, 30000, 35000, 40000, 45000,50000] #10201    
     start_sampling_time = 201 #[0, 5001, 10001, 15001, 20001, 25001, 30001, 35001, 40001, 45001]
     interval = 100 #10 Hz
     RC_low = 5
@@ -24,10 +24,11 @@ if __name__ == "__main__":
     aw_list = 200 #[10, 50, 100, 200, 500]
     nr_list = True #[False, True]  
     mu_list = 0 #[0,1,2]
-    cl_list=[True] #,False]
-    min_cl=[2,3,4,5,6]
+    cl_list=[False] #,False]
+    min_cl=[2] #,3,4,5,6]
     max_cl=[10,15,20,25,30]
-    max_speed_diff_list=[1.5, 2, 2.5] #,3,4,5,6]
+    max_speed_diff_list=[5]#,10,15,20] #,3,4,5,6]
+    max_distance_cl=[3] #,4,5,10,15] #,3,4,5,6]
 
 
 
@@ -37,10 +38,11 @@ if __name__ == "__main__":
     #for target_distance in td:
     for cl in cl_list:
         for ds in ds_list:
-            for size_cl in range(0,1):
+            for size_cl in range(0,len(min_cl)):
                 for speed in max_speed_diff_list:
-                    param = [time_period,td,start_sampling_time,interval,RC_low,RC_high,RSRP_ratio_beacon,mu_list,obs_list,ds,nr_list,aw_list,sd,cl,min_cl[size_cl],max_cl[size_cl],speed]
-                    param_list.append(param)
+                    for dist_max in max_distance_cl:    
+                        param = [time_period,td,start_sampling_time,interval,RC_low,RC_high,RSRP_ratio_beacon,mu_list,obs_list,ds,nr_list,aw_list,sd,cl,min_cl[size_cl],max_cl[size_cl],speed,dist_max]
+                        param_list.append(param)
                     #else:
                     #    param = [time_period,target_distance,start_sampling_time,interval,RC_low,RC_high,RSRP_ratio_beacon,mu_list[0],obs,ds,nr,aw,sd]
                     #    param_list.append(param)
@@ -48,7 +50,7 @@ if __name__ == "__main__":
     #for conf in param:
     
     # Número máximo de procesos (8 para usar 8 CPU)
-    num_procesos = 20
+    num_procesos = 5
     resultados=[]
     # Crear un grupo de procesos
     with multiprocessing.Pool(processes=num_procesos) as pool:
@@ -60,10 +62,10 @@ if __name__ == "__main__":
         resultado_dic = json.loads(resultado)
         diccionario_final[idx] = resultado_dic
 
-    with open("Final_results_Cluster1.json", "w") as archivo:
+    with open("Final_results_noCluster_0.json", "w") as archivo:
         json.dump(diccionario_final, archivo, indent=4)
 
-    print("Archivo 'Final_results_Cluster1.json' creado exitosamente.")
+    print("Archivo 'Final_results_noCluster_0.json' creado exitosamente.")
 
 #    print("Archivo 'Final_results_group1.json' creado exitosamente.")
 
