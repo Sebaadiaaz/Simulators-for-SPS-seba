@@ -24,11 +24,11 @@ if __name__ == "__main__":
     aw_list = 200 #[10, 50, 100, 200, 500]
     nr_list = True #[False, True]  
     mu_list = 0 #[0,1,2]
-    cl_list=[False] #,False]
-    min_cl=[2] #,3,4,5,6]
+    cl_list=[True] #,False]
+    min_cl=[2,3,4,5,6]
     max_cl=[10,15,20,25,30]
-    max_speed_diff_list=[5]#,10,15,20] #,3,4,5,6]
-    max_distance_cl=[3] #,4,5,10,15] #,3,4,5,6]
+    max_speed_diff_list=[5,10,15] #,3,4,5,6]
+    max_distance_cl=[3,4,5,10,15] #,3,4,5,6]
 
 
 
@@ -50,7 +50,7 @@ if __name__ == "__main__":
     #for conf in param:
     
     # Número máximo de procesos (8 para usar 8 CPU)
-    num_procesos = 5
+    num_procesos = 20
     resultados=[]
     # Crear un grupo de procesos
     with multiprocessing.Pool(processes=num_procesos) as pool:

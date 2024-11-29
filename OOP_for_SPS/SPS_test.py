@@ -138,15 +138,15 @@ def main(time_period,target_distance,start_sampling_time,interval,RC_low,RC_high
     # Initializing buildings in urban scenario
     obstacles = {}
     obstacles_bool = obs
-    if obstacles_bool==True:
-        obstacles = Obstacles()
+    #if obstacles_bool==True:
+    obstacles = Obstacles()
 
     nr_bool = nr
     ds_index = ds
     cl_bool = cl
     max_dis_cl = mdcl
-    if cl_bool==True:
-        clusters = cluster() 
+    #if cl_bool==True:
+    clusters = cluster() 
 
     if nr_bool: RSRP_ratio_beacon = 1
 
